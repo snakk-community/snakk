@@ -1,4 +1,7 @@
-﻿using System;
+﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
+//  SPDX-License-Identifier: MIT
+
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Snakk.DB
@@ -11,7 +14,7 @@ namespace Snakk.DB
         public DateTime CreatedUtc { get; set; }
 
         public long FileSizeInBytes { get; set; }
-        
+
         public bool IsDeleted { get; set; }
     }
 }

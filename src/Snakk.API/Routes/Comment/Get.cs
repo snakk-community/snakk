@@ -1,4 +1,7 @@
-﻿using System;
+﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
+//  SPDX-License-Identifier: MIT
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 

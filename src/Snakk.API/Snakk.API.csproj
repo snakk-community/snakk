@@ -1,4 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<!-- SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no> -->
+<!--  SPDX-License-Identifier: MIT -->
+
+  <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>

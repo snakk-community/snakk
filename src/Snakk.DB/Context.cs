@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
+//  SPDX-License-Identifier: MIT
+
+using Microsoft.EntityFrameworkCore;
 
 namespace Snakk.DB
 {
