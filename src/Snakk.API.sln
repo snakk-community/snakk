@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snakk.API", "Snakk.API\Snakk.API.csproj", "{33F0935F-15B3-4F63-9F65-DAEE96AFC773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snakk.DB", "Snakk.DB\Snakk.DB.csproj", "{D012F24E-E92A-4EE9-928E-DAA577EB1054}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snakk.DB", "Snakk.DB\Snakk.DB.csproj", "{D012F24E-E92A-4EE9-928E-DAA577EB1054}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snakk.PluginFramework", "Snakk.PluginFramework\Snakk.PluginFramework.csproj", "{23FC9C9C-DEE4-48CE-8689-B91168212048}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D012F24E-E92A-4EE9-928E-DAA577EB1054}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D012F24E-E92A-4EE9-928E-DAA577EB1054}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D012F24E-E92A-4EE9-928E-DAA577EB1054}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23FC9C9C-DEE4-48CE-8689-B91168212048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23FC9C9C-DEE4-48CE-8689-B91168212048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23FC9C9C-DEE4-48CE-8689-B91168212048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23FC9C9C-DEE4-48CE-8689-B91168212048}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

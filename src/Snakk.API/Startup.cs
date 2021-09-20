@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Snakk.API.MiddelWare;
+using Weikio.PluginFramework.Catalogs;
 
 namespace Snakk.API
 {
@@ -37,20 +38,38 @@ namespace Snakk.API
 
             AddRouteServices(services);
             AddHelpers(services);
+            AddPluginInterfaces(services);
         }
 
         private void AddRouteServices(IServiceCollection services)
         {
-            services.AddScoped<Routes.Comment.IGet, Routes.Comment.Get>();
-            services.AddScoped<Routes.Thread.IGet, Routes.Thread.Get>();
-            services.AddScoped<Routes.Channel.IGet, Routes.Channel.Get>();
-            services.AddScoped<Routes.Channel.Thread.List.IGet, Routes.Channel.Thread.List.Get>();
+            services.AddScoped<Routes.Comment.Services.IGet, Routes.Comment.Services.Get>();
+            services.AddScoped<Routes.Post.Services.IGet, Routes.Post.Services.Get>();
+            services.AddScoped<Routes.Channel.Services.IGet, Routes.Channel.Services.Get>();
+            services.AddScoped<Routes.Channel.Post.List.Services.IGet, Routes.Channel.Post.List.Services.Get>();
+        }
+
+        private void AddPluginInterfaces(IServiceCollection services)
+        {
+            services
+                .AddPluginFramework()
+                .AddPluginCatalog(new FolderPluginCatalog(@".\plugins", type =>
+                {
+                    type.Implements<PluginFramework.Routes.Comment.Services.IGet>();
+                    type.Implements<PluginFramework.Routes.Post.Services.IGet>();
+                    type.Implements<PluginFramework.Routes.Channel.Services.IGet>();
+                    type.Implements<PluginFramework.Routes.Channel.Post.List.Services.IGet>();
+                }))
+                .AddPluginType<PluginFramework.Routes.Comment.Services.IGet>()
+                .AddPluginType<PluginFramework.Routes.Post.Services.IGet>()
+                .AddPluginType<PluginFramework.Routes.Channel.Services.IGet>()
+                .AddPluginType<PluginFramework.Routes.Channel.Post.List.Services.IGet>();
         }
 
         private void AddHelpers(IServiceCollection services)
         {
             // HashIdConverters
-            services.AddSingleton<Helpers.HashIdConverters.IThreadHashIdConverter, Helpers.HashIdConverters.ThreadHashIdConverter>();
+            services.AddSingleton<Helpers.HashIdConverters.IPostHashIdConverter, Helpers.HashIdConverters.PostHashIdConverter>();
             services.AddSingleton<Helpers.HashIdConverters.ICommentHashIdConverter, Helpers.HashIdConverters.CommentHashIdConverter>();
             services.AddSingleton<Helpers.HashIdConverters.IUserHashIdConverter, Helpers.HashIdConverters.UserHashIdConverter>();
         }

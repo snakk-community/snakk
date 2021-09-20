@@ -12,10 +12,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="Weikio.PluginFramework.AspNetCore" Version="1.4.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Snakk.DB\Snakk.DB.csproj" />
+    <ProjectReference Include="..\Snakk.PluginFramework\Snakk.PluginFramework.csproj" />
   </ItemGroup>
 
 </Project>
