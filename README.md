@@ -1,7 +1,7 @@
 # snakk
 Fully featured free (as in a hug) forum software written in C#.NET Core
 
-Very early stages.
+Very early stages, with the current focus on getting the structure down.
 
 Planned features:
 
