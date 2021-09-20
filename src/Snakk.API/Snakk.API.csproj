@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Snakk.DB\Snakk.DB.csproj" />
-    <ProjectReference Include="..\Snakk.PluginFramework\Snakk.PluginFramework.csproj" />
+    <ProjectReference Include="..\Snakk.API.PluginFramework\Snakk.API.PluginFramework.csproj" />
   </ItemGroup>
 
 </Project>
