@@ -1,10 +1,9 @@
 ﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
 //  SPDX-License-Identifier: MIT
 
-namespace Snakk.API.PluginFramework
+namespace Snakk.API.Dto.Routes.Post.Get
 {
-    public interface IRunAfter
+    public class RequestDto : BaseRequestDto
     {
-        void RunAfter();
     }
 }

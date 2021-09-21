@@ -1,30 +1,21 @@
 ﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
 //  SPDX-License-Identifier: MIT
 
+using Snakk.API.Dto.Routes.Channel.Post.List.Get;
 using System;
 
 namespace Snakk.API.Plugin.MyPlugin1.Hooks.Routes.Channel.Post.List.Services
 {
     public class Get : PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet
     {
-        public void ParseRequestData(object pluginData)
+        public void After(string channelUrlIdentifier, ResponseDto responseDto)
         {
-            Console.WriteLine($"Hello from {GetType().FullName}.ParseRequestData()");
+            Console.WriteLine($"Hello from {GetType().FullName}.After()");
         }
 
-        public void RunAfter()
+        public void Before(string channelUrlIdentifier, ResponseDto responseDto)
         {
-            Console.WriteLine($"Hello from {GetType().FullName}.RunAfter()");
-        }
-
-        public void RunBefore()
-        {
-            Console.WriteLine($"Hello from {GetType().FullName}.RunBefore()");
-        }
-
-        public void StuffResponseData(object pluginData)
-        {
-            Console.WriteLine($"Hello from {GetType().FullName}.StuffResponseData()");
+            Console.WriteLine($"Hello from {GetType().FullName}.Before()");
         }
     }
 }

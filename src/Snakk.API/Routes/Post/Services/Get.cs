@@ -7,7 +7,7 @@ namespace Snakk.API.Routes.Post.Services
 {
     public interface IGet
     {
-        Task<Dtos.Get.ResponseDto> RunAsync(
+        Task<Dto.Routes.Post.Get.ResponseDto> RunAsync(
             long id,
             object pluginData);
     }
@@ -21,19 +21,17 @@ namespace Snakk.API.Routes.Post.Services
             _pluginEnumerable = pluginEnumerable;
         }
 
-        public async Task<Dtos.Get.ResponseDto> RunAsync(
+        public async Task<Dto.Routes.Post.Get.ResponseDto> RunAsync(
             long id,
             object pluginData)
         {
-            var responseDto = new Dtos.Get.ResponseDto();
+            var responseDto = new Dto.Routes.Post.Get.ResponseDto();
 
-            Hook.Invoke(_pluginEnumerable, i => i.ParseRequestData(pluginData));
-            Hook.Invoke(_pluginEnumerable, i => i.RunBefore());
+            Hook.Invoke(_pluginEnumerable, i => i.Before(id, responseDto));
 
             await Task.Run(() => { });
 
-            Hook.Invoke(_pluginEnumerable, i => i.RunAfter());
-            Hook.Invoke(_pluginEnumerable, i => i.StuffResponseData(responseDto.PluginData));
+            Hook.Invoke(_pluginEnumerable, i => i.Before(id, responseDto));
 
             return responseDto;
         }

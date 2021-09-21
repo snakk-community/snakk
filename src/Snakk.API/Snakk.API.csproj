@@ -9,13 +9,16 @@
 
   <ItemGroup>
     <PackageReference Include="Hashids.net" Version="1.4.1" />
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="5.0.26" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="5.2.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
     <PackageReference Include="Weikio.PluginFramework.AspNetCore" Version="1.4.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Snakk.API.Dto\Snakk.API.Dto.csproj" />
     <ProjectReference Include="..\Snakk.DB\Snakk.DB.csproj" />
     <ProjectReference Include="..\Snakk.API.PluginFramework\Snakk.API.PluginFramework.csproj" />
   </ItemGroup>

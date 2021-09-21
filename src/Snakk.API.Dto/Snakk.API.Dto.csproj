@@ -1,22 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Copy SourceFiles="$(TargetDir)\$(ProjectName).dll" DestinationFolder="$(ProjectDir)..\..\dist\" />
     <Copy SourceFiles="$(TargetDir)\$(ProjectName).pdb" DestinationFolder="$(ProjectDir)..\..\dist\" />
   </Target>
-
-  <ItemGroup>
-    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="5.0.26" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Snakk.API.Dto\Snakk.API.Dto.csproj" />
-    <ProjectReference Include="..\Snakk.DB\Snakk.DB.csproj" />
-  </ItemGroup>
-
 
 </Project>

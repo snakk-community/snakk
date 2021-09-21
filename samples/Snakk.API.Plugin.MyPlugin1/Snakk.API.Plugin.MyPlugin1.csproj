@@ -5,8 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="5.0.26" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Snakk.API.Dto">
+      <HintPath>..\..\dist\Snakk.API.Dto.dll</HintPath>
+    </Reference>
     <Reference Include="Snakk.API.PluginFramework">
       <HintPath>..\..\dist\Snakk.API.PluginFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Snakk.DB">
+      <HintPath>..\..\dist\Snakk.DB.dll</HintPath>
     </Reference>
   </ItemGroup>
 

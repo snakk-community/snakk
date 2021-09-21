@@ -55,15 +55,15 @@ namespace Snakk.API
                 .AddPluginFramework()
                 .AddPluginCatalog(new FolderPluginCatalog(@".\plugins", type =>
                 {
-                    type.Implements<PluginFramework.Routes.Comment.Services.IGet>();
-                    type.Implements<PluginFramework.Routes.Post.Services.IGet>();
-                    type.Implements<PluginFramework.Routes.Channel.Services.IGet>();
-                    type.Implements<PluginFramework.Routes.Channel.Post.List.Services.IGet>();
+                    type.Implements<PluginFramework.Hooks.Routes.Comment.Services.IGet>();
+                    type.Implements<PluginFramework.Hooks.Routes.Post.Services.IGet>();
+                    type.Implements<PluginFramework.Hooks.Routes.Channel.Services.IGet>();
+                    type.Implements<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet>();
                 }))
-                .AddPluginType<PluginFramework.Routes.Comment.Services.IGet>()
-                .AddPluginType<PluginFramework.Routes.Post.Services.IGet>()
-                .AddPluginType<PluginFramework.Routes.Channel.Services.IGet>()
-                .AddPluginType<PluginFramework.Routes.Channel.Post.List.Services.IGet>();
+                .AddPluginType<PluginFramework.Hooks.Routes.Comment.Services.IGet>()
+                .AddPluginType<PluginFramework.Hooks.Routes.Post.Services.IGet>()
+                .AddPluginType<PluginFramework.Hooks.Routes.Channel.Services.IGet>()
+                .AddPluginType<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet>();
         }
 
         private void AddHelpers(IServiceCollection services)

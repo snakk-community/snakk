@@ -1,7 +1,6 @@
 ﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
 //  SPDX-License-Identifier: MIT
 
-using Snakk.API.Extensions;
 using Snakk.API.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ namespace Snakk.API.Routes.Channel.Post.List.Services
 {
     public interface IGet
     {
-        Task<Dtos.Get.ResponseDto> RunAsync(
+        Task<Dto.Routes.Channel.Post.List.Get.ResponseDto> RunAsync(
             string channelUrlIdentifier,
             object pluginData);
     }
@@ -24,19 +23,17 @@ namespace Snakk.API.Routes.Channel.Post.List.Services
             _pluginEnumerable = pluginEnumerable;
         }
 
-        public async Task<Dtos.Get.ResponseDto> RunAsync(
+        public async Task<Dto.Routes.Channel.Post.List.Get.ResponseDto> RunAsync(
             string channelUrlIdentifier,
             object pluginData)
         {
-            var responseDto = new Dtos.Get.ResponseDto();
+            var responseDto = new Dto.Routes.Channel.Post.List.Get.ResponseDto();
 
-            Hook.Invoke(_pluginEnumerable, i => i.ParseRequestData(pluginData));
-            Hook.Invoke(_pluginEnumerable, i => i.RunBefore());
+            Hook.Invoke(_pluginEnumerable, i => i.Before(channelUrlIdentifier, responseDto));
 
             await Task.Run(() => { });
 
-            Hook.Invoke(_pluginEnumerable, i => i.RunAfter());
-            Hook.Invoke(_pluginEnumerable, i => i.StuffResponseData(responseDto.PluginData));
+            Hook.Invoke(_pluginEnumerable, i => i.After(channelUrlIdentifier, responseDto));
 
             return responseDto;
         }

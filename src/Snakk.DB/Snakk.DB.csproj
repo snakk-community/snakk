@@ -7,7 +7,12 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
+   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+     <Copy SourceFiles="$(TargetDir)\$(ProjectName).dll" DestinationFolder="$(ProjectDir)..\..\dist\" />
+     <Copy SourceFiles="$(TargetDir)\$(ProjectName).pdb" DestinationFolder="$(ProjectDir)..\..\dist\" />
+   </Target>
+
+   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
       <PrivateAssets>all</PrivateAssets>

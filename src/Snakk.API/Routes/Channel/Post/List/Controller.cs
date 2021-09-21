@@ -19,7 +19,7 @@ namespace Snakk.API.Routes.Channel.Post.List
 
         public async Task<IActionResult> GetAsync(
             [FromRoute] string channelSlug,
-            [FromQuery] Dtos.Get.RequestDto requestDto)
+            [FromQuery] Dto.Routes.Channel.Post.List.Get.RequestDto requestDto)
             => Ok(await _get.RunAsync(
                 channelSlug,
                 requestDto.PluginData));

@@ -22,7 +22,7 @@ namespace Snakk.API.Routes.Post
         [HttpGet("{hashid}")]
         public async Task<IActionResult> GetAsync(
             [FromRoute] string hashId,
-            [FromQuery] Dtos.Get.RequestDto requestDto)
+            [FromQuery] Dto.Routes.Post.Get.RequestDto requestDto)
             => Ok(await _get.RunAsync(
                 _postHashIdConverter.GetIdFromHash(hashId),
                 requestDto.PluginData));
