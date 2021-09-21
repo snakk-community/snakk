@@ -1,4 +1,5 @@
 ﻿using Snakk.API.Extensions;
+using Snakk.API.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,9 +14,9 @@ namespace Snakk.API.Routes.Post.Services
 
     public class Get : IGet
     {
-        private readonly IEnumerable<PluginFramework.Routes.Post.Services.IGet> _pluginEnumerable;
+        private readonly IEnumerable<PluginFramework.Hooks.Routes.Post.Services.IGet> _pluginEnumerable;
 
-        public Get(IEnumerable<PluginFramework.Routes.Post.Services.IGet> pluginEnumerable)
+        public Get(IEnumerable<PluginFramework.Hooks.Routes.Post.Services.IGet> pluginEnumerable)
         {
             _pluginEnumerable = pluginEnumerable;
         }
@@ -26,13 +27,13 @@ namespace Snakk.API.Routes.Post.Services
         {
             var responseDto = new Dtos.Get.ResponseDto();
 
-            _pluginEnumerable.ForEach(i => i.ParseRequestData(pluginData));
-            _pluginEnumerable.ForEach(i => i.RunBefore());
+            Hook.Invoke(_pluginEnumerable, i => i.ParseRequestData(pluginData));
+            Hook.Invoke(_pluginEnumerable, i => i.RunBefore());
 
             await Task.Run(() => { });
 
-            _pluginEnumerable.ForEach(i => i.RunAfter());
-            _pluginEnumerable.ForEach(i => i.StuffResponseData(responseDto.PluginData));
+            Hook.Invoke(_pluginEnumerable, i => i.RunAfter());
+            Hook.Invoke(_pluginEnumerable, i => i.StuffResponseData(responseDto.PluginData));
 
             return responseDto;
         }

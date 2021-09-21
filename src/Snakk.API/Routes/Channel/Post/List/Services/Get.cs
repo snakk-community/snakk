@@ -2,6 +2,7 @@
 //  SPDX-License-Identifier: MIT
 
 using Snakk.API.Extensions;
+using Snakk.API.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,9 +17,9 @@ namespace Snakk.API.Routes.Channel.Post.List.Services
 
     public class Get : IGet
     {
-        private readonly IEnumerable<PluginFramework.Routes.Channel.Post.List.Services.IGet> _pluginEnumerable;
+        private readonly IEnumerable<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet> _pluginEnumerable;
 
-        public Get(IEnumerable<PluginFramework.Routes.Channel.Post.List.Services.IGet> pluginEnumerable)
+        public Get(IEnumerable<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet> pluginEnumerable)
         {
             _pluginEnumerable = pluginEnumerable;
         }
@@ -29,13 +30,13 @@ namespace Snakk.API.Routes.Channel.Post.List.Services
         {
             var responseDto = new Dtos.Get.ResponseDto();
 
-            _pluginEnumerable.ForEach(i => i.ParseRequestData(pluginData));
-            _pluginEnumerable.ForEach(i => i.RunBefore());
+            Hook.Invoke(_pluginEnumerable, i => i.ParseRequestData(pluginData));
+            Hook.Invoke(_pluginEnumerable, i => i.RunBefore());
 
-            await Task.Run(() => { System.Threading.Thread.Sleep(1); });
+            await Task.Run(() => { });
 
-            _pluginEnumerable.ForEach(i => i.RunAfter());
-            _pluginEnumerable.ForEach(i => i.StuffResponseData(responseDto.PluginData));
+            Hook.Invoke(_pluginEnumerable, i => i.RunAfter());
+            Hook.Invoke(_pluginEnumerable, i => i.StuffResponseData(responseDto.PluginData));
 
             return responseDto;
         }

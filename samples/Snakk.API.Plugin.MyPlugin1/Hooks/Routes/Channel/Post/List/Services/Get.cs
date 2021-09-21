@@ -3,9 +3,9 @@
 
 using System;
 
-namespace Snakk.API.Plugin.MyPlugin1.Routes.Comment.Services
+namespace Snakk.API.Plugin.MyPlugin1.Hooks.Routes.Channel.Post.List.Services
 {
-    public class Get : PluginFramework.Routes.Comment.Services.IGet
+    public class Get : PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet
     {
         public void ParseRequestData(object pluginData)
         {

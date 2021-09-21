@@ -1,4 +1,4 @@
-﻿namespace Snakk.API.PluginFramework.Routes.Channel.Post.List.Services
+﻿namespace Snakk.API.PluginFramework.Hooks.Routes.Channel.Services
 {
     public interface IGet :
         IParseRequestData,

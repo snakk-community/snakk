@@ -1,4 +1,4 @@
-﻿namespace Snakk.API.PluginFramework.Routes.Comment.Services
+﻿namespace Snakk.API.PluginFramework.Hooks.Routes.Comment.Services
 {
     public interface IGet :
         IParseRequestData,
