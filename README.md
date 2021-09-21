@@ -11,5 +11,6 @@ Planned features:
 - Web editor for views that uses a razor engine to allow for IntelliSense of Model properties, with error detection
 - Support for both AJAX and full loading of pages
 - GDPR-by-default
+- Cookie-consent-by-default
 - Users can create their own channels, similar to subreddits
 - Support for anonymous posting
