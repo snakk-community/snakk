@@ -1,6 +1,6 @@
 ﻿namespace Snakk.API.PluginFramework.Hooks.Routes.Channel.Post.List.Services
 {
-    public interface IGet
+    public interface IGet : IPlugin
     {
         void Before(
             string channelUrlIdentifier,

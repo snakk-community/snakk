@@ -1,6 +1,6 @@
 ﻿namespace Snakk.API.PluginFramework.Hooks.Routes.Post.Services
 {
-    public interface IGet
+    public interface IGet : IPlugin
     {
         void Before(
             long commentId, 

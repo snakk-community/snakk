@@ -3,6 +3,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,12 @@ namespace Snakk.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCompression(options =>
+            {
+                options.Providers.Add<BrotliCompressionProvider>();
+                options.Providers.Add<GzipCompressionProvider>();
+            });
+
             services.AddControllers(
                 options =>
                 {
@@ -32,13 +39,9 @@ namespace Snakk.API
                 }
             );
 
-            services
-                .AddDbContext<Snakk.DB.Context>(
-                    x => x.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
-
-            AddRouteServices(services);
             AddHelpers(services);
             AddPluginInterfaces(services);
+            AddRouteServices(services);
         }
 
         private void AddRouteServices(IServiceCollection services)
@@ -51,19 +54,22 @@ namespace Snakk.API
 
         private void AddPluginInterfaces(IServiceCollection services)
         {
+            System.IO.Directory.CreateDirectory(@".\plugins");
+
+            PluginRegistry.LoadPlugins();
+
             services
                 .AddPluginFramework()
+
                 .AddPluginCatalog(new FolderPluginCatalog(@".\plugins", type =>
                 {
-                    type.Implements<PluginFramework.Hooks.Routes.Comment.Services.IGet>();
-                    type.Implements<PluginFramework.Hooks.Routes.Post.Services.IGet>();
-                    type.Implements<PluginFramework.Hooks.Routes.Channel.Services.IGet>();
-                    type.Implements<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet>();
+                    type.Implements<PluginFramework.IPlugin>();
+                    //type.Implements<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet>();
                 }))
-                .AddPluginType<PluginFramework.Hooks.Routes.Comment.Services.IGet>()
-                .AddPluginType<PluginFramework.Hooks.Routes.Post.Services.IGet>()
-                .AddPluginType<PluginFramework.Hooks.Routes.Channel.Services.IGet>()
-                .AddPluginType<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet>();
+            .AddPluginType<PluginFramework.Hooks.Routes.Post.Services.IGet>()
+            .AddPluginType<PluginFramework.Hooks.Routes.Comment.Services.IGet>()
+            .AddPluginType<PluginFramework.Hooks.Routes.Channel.Services.IGet>()
+            .AddPluginType<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet>();
         }
 
         private void AddHelpers(IServiceCollection services)
@@ -82,11 +88,13 @@ namespace Snakk.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            app.UseResponseCompression();
+
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

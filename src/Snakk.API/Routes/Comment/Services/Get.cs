@@ -34,29 +34,31 @@ namespace Snakk.API.Routes.Comment.Services
         {
             var responseDto = new Dto.Routes.Comment.Get.ResponseDto();
             
-            HookBefore(id, responseDto);
+            HookBefore(_pluginEnumerable, id, responseDto);
 
             using var db = new DB.Context();
 
             var comment = await GetComment(
+                _pluginEnumerable,
                 id,
                 db);
 
             responseDto.Text = comment.Text;
             responseDto.PluginData = comment.PluginData;
 
-            HookAfter(id, responseDto);
+            HookAfter(_pluginEnumerable, id, responseDto);
 
             return responseDto;
         }
 
         public async Task<(string Text, object PluginData)> GetComment(
+            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
             long id,
             DB.Context db)
         {
             var wherePredicate = PredicateBuilder.New<DB.Comment>();
 
-            HookCommentQueryWhereBuilder(wherePredicate);
+            HookCommentQueryWhereBuilder(pluginEnumerable, wherePredicate);
 
             wherePredicate.And(i => i.Id == id);
 
@@ -65,52 +67,60 @@ namespace Snakk.API.Routes.Comment.Services
                 .Select(i => new { 
                     i.Text,
 
-                    PluginData = CommentQuerySelectorBuilder(i)
+                    //PluginData = CommentQuerySelectorBuilder(pluginEnumerable, i)
+                    PluginData = new { },
                 })
-                .SingleOrDefaultAsync();
+                .SingleOrDefaultAsync()
+                ?? throw new Exception("Could not find comment with provided id");
 
             return (comment.Text, comment.PluginData);
         }
 
-        private object CommentQuerySelectorBuilder(DB.Comment entity)
+        private static object CommentQuerySelectorBuilder(
+            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
+            DB.Comment entity)
         {
             dynamic result = new ExpandoObject();
 
-            HookCommentQuerySelectorBuilder(entity, result);
+            HookCommentQuerySelectorBuilder(pluginEnumerable, entity, result);
 
             return result;
         }
 
         #region Hook definitions
-        private void HookBefore(
+        private static void HookBefore(
+            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
             long id,
             Dto.Routes.Comment.Get.ResponseDto responseDto)
             => Hook.Invoke(
-                _pluginEnumerable,
+                pluginEnumerable,
                 i => i.Before(
                     id,
                     responseDto));
 
-        private void HookAfter(
+        private static void HookAfter(
+            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
             long id,
             Dto.Routes.Comment.Get.ResponseDto responseDto)
             => Hook.Invoke(
-                _pluginEnumerable,
+                pluginEnumerable,
                 i => i.After(
                     id,
                     responseDto));
 
-        private void HookCommentQueryWhereBuilder(
+        private static void HookCommentQueryWhereBuilder(
+            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
             ExpressionStarter<DB.Comment> wherePredicate)
             => Hook.Invoke(
-                _pluginEnumerable,
+                pluginEnumerable,
                 i => i.CommentQueryWhereBuilder(wherePredicate));
 
-        private void HookCommentQuerySelectorBuilder(
+        private static void HookCommentQuerySelectorBuilder(
+            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
             DB.Comment entity,
             ExpandoObject result)
             => Hook.Invoke(
-                _pluginEnumerable,
+                pluginEnumerable,
                 i => i.CommentQuerySelectorBuilder(entity, result));
         #endregion
     }

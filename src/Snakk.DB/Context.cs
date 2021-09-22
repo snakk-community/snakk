@@ -7,6 +7,17 @@ namespace Snakk.DB
 {
     public class Context : DbContext
     {
+        private static bool _created = false;
+        public Context()
+        {
+            if (!_created)
+            {
+                _created = true;
+                Database.EnsureDeleted();
+                Database.EnsureCreated();
+            }
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=snakk.db");
 
