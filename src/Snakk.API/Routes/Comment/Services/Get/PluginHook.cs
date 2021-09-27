@@ -17,8 +17,7 @@ namespace Snakk.API.Routes.Comment.Services.Get
                 pluginEnumerable,
                 pluginRequestDataDictionary,
                 pluginDataDictionary,
-                (plugin, pluginRequestData, pluginData)
-                => plugin.Before(
+                (plugin, pluginRequestData, pluginData) => plugin.Before(
                     pluginRequestData,
                     pluginData,
                     commentId));
@@ -59,12 +58,11 @@ namespace Snakk.API.Routes.Comment.Services.Get
                 pluginEnumerable,
                 pluginRequestDataDictionary,
                 pluginDataDictionary,
-                (plugin, pluginRequestData, pluginData)
-                    => plugin.CommentQueryBuilderBefore(
-                        pluginRequestData,
-                        pluginData,
-                        commentId,
-                        commentQuery));
+                (plugin, pluginRequestData, pluginData) => plugin.CommentQueryBuilderBefore(
+                    pluginRequestData,
+                    pluginData,
+                    commentId,
+                    commentQuery));
 
         public static void CommentQueryBuilderAfter(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
@@ -75,8 +73,7 @@ namespace Snakk.API.Routes.Comment.Services.Get
                 pluginEnumerable,
                 pluginRequestDataDictionary,
                 pluginDataDictionary,
-                (plugin, pluginRequestData, pluginData)
-                => plugin.CommentQueryBuilderAfter(
+                (plugin, pluginRequestData, pluginData) => plugin.CommentQueryBuilderAfter(
                     pluginRequestData,
                     pluginData,
                     commentId,
