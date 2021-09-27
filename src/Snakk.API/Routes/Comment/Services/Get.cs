@@ -1,13 +1,14 @@
 ﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
 //  SPDX-License-Identifier: MIT
 
-using LinqKit;
-using Microsoft.EntityFrameworkCore;
 using Snakk.API.Helpers;
+using SqlKata.Execution;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Snakk.API.Routes.Comment.Services
@@ -15,113 +16,128 @@ namespace Snakk.API.Routes.Comment.Services
     public interface IGet
     {
         Task<Dto.Routes.Comment.Get.ResponseDto> RunAsync(
-            long id,
+            long commentId,
             object pluginData);
     }
 
     public class Get : IGet
     {
         private readonly IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> _pluginEnumerable;
+        private readonly QueryFactory _db;
 
-        public Get(IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable)
+        public Get(
+            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
+            QueryFactory db)
         {
             _pluginEnumerable = pluginEnumerable;
+            _db = db;
         }
 
         public async Task<Dto.Routes.Comment.Get.ResponseDto> RunAsync(
-            long id,
+            long commentId,
             object pluginData)
         {
             var responseDto = new Dto.Routes.Comment.Get.ResponseDto();
-            
-            HookBefore(_pluginEnumerable, id, responseDto);
 
-            using var db = new DB.Context();
+            HookBefore(_pluginEnumerable, commentId, responseDto);
 
             var comment = await GetComment(
                 _pluginEnumerable,
-                id,
-                db);
+                commentId);
 
             responseDto.Text = comment.Text;
             responseDto.PluginData = comment.PluginData;
 
-            HookAfter(_pluginEnumerable, id, responseDto);
+            HookAfter(_pluginEnumerable, commentId, responseDto);
 
             return responseDto;
         }
 
-        public async Task<(string Text, object PluginData)> GetComment(
+        public async Task<(string Text, dynamic PluginData)> GetComment(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
-            long id,
-            DB.Context db)
+            long commentId)
         {
-            var wherePredicate = PredicateBuilder.New<DB.Comment>();
+            var commentQuery = _db
+                .Query("Comment")
+                .Where("Id", commentId)
+                .Select("Id", "Text", "CreatedUtc");
 
-            HookCommentQueryWhereBuilder(pluginEnumerable, wherePredicate);
+            HookCommentQueryBuilderBefore(_pluginEnumerable, commentId, commentQuery);
 
-            wherePredicate.And(i => i.Id == id);
+            var comment = await commentQuery.FirstOrDefaultAsync<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto>();
 
-            var comment = await db.Comments
-                .Where(wherePredicate)
-                .Select(i => new { 
-                    i.Text,
-
-                    //PluginData = CommentQuerySelectorBuilder(pluginEnumerable, i)
-                    PluginData = new { },
-                })
-                .SingleOrDefaultAsync()
-                ?? throw new Exception("Could not find comment with provided id");
+            HookCommentQueryBuilderAfter(_pluginEnumerable, commentId, comment);
 
             return (comment.Text, comment.PluginData);
-        }
-
-        private static object CommentQuerySelectorBuilder(
-            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
-            DB.Comment entity)
-        {
-            dynamic result = new ExpandoObject();
-
-            HookCommentQuerySelectorBuilder(pluginEnumerable, entity, result);
-
-            return result;
         }
 
         #region Hook definitions
         private static void HookBefore(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
-            long id,
+            long commentId,
             Dto.Routes.Comment.Get.ResponseDto responseDto)
             => Hook.Invoke(
                 pluginEnumerable,
                 i => i.Before(
-                    id,
+                    commentId,
                     responseDto));
 
         private static void HookAfter(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
-            long id,
+            long commentId,
             Dto.Routes.Comment.Get.ResponseDto responseDto)
             => Hook.Invoke(
                 pluginEnumerable,
                 i => i.After(
-                    id,
+                    commentId,
                     responseDto));
 
-        private static void HookCommentQueryWhereBuilder(
+        private static void HookCommentQueryBuilderBefore(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
-            ExpressionStarter<DB.Comment> wherePredicate)
+            long commentId,
+            SqlKata.Query commentQuery)
             => Hook.Invoke(
                 pluginEnumerable,
-                i => i.CommentQueryWhereBuilder(wherePredicate));
+                i => i.CommentQueryBuilderBefore(commentId, commentQuery));
 
-        private static void HookCommentQuerySelectorBuilder(
+        private static void HookCommentQueryBuilderAfter(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
-            DB.Comment entity,
-            ExpandoObject result)
+            long commentId,
+            QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto)
             => Hook.Invoke(
                 pluginEnumerable,
-                i => i.CommentQuerySelectorBuilder(entity, result));
+                i => i.CommentQueryBuilderAfter(commentId, commentQueryResultDto));
         #endregion
+    }
+
+    public class SelectBuilder<TSource>
+    {
+        private readonly List<MemberInfo> members = new List<MemberInfo>();
+
+        public SelectBuilder<TSource> Add<TValue>(Expression<Func<TSource, TValue>> selector)
+        {
+            var member = ((MemberExpression)selector.Body).Member;
+
+            members.Add(member);
+
+            return this;
+        }
+
+        public IQueryable<TResult> Select<TResult>(IQueryable<TSource> source)
+        {
+            var sourceType = typeof(TSource);
+            var resultType = typeof(TResult);
+
+            var parameter = Expression.Parameter(sourceType, "e");
+
+            var bindings = members.Select(member => Expression.Bind(
+                resultType.GetProperty(member.Name), Expression.MakeMemberAccess(parameter, member)));
+
+            var body = Expression.MemberInit(Expression.New(resultType), bindings);
+
+            var selector = Expression.Lambda<Func<TSource, TResult>>(body, parameter);
+
+            return source.Select(selector);
+        }
     }
 }

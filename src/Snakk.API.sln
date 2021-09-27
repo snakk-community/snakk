@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snakk.DB", "Snakk.DB\Snakk.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snakk.API.PluginFramework", "Snakk.API.PluginFramework\Snakk.API.PluginFramework.csproj", "{DABC9D25-6F92-401E-8C15-BF843026A2A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snakk.API.Dto", "Snakk.API.Dto\Snakk.API.Dto.csproj", "{CE29AE3C-5E6D-4CD7-BFDD-D2E21A1E8813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snakk.API.Dto", "Snakk.API.Dto\Snakk.API.Dto.csproj", "{CE29AE3C-5E6D-4CD7-BFDD-D2E21A1E8813}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snakk.API.QueryResult.Dto", "Snakk.API.QueryResult.Dto\Snakk.API.QueryResult.Dto.csproj", "{51DDD15F-7793-4469-AC0C-C44BF11EE97B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CE29AE3C-5E6D-4CD7-BFDD-D2E21A1E8813}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE29AE3C-5E6D-4CD7-BFDD-D2E21A1E8813}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE29AE3C-5E6D-4CD7-BFDD-D2E21A1E8813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51DDD15F-7793-4469-AC0C-C44BF11EE97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51DDD15F-7793-4469-AC0C-C44BF11EE97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51DDD15F-7793-4469-AC0C-C44BF11EE97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51DDD15F-7793-4469-AC0C-C44BF11EE97B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

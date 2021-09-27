@@ -10,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Snakk.API.MiddelWare;
 using Weikio.PluginFramework.Catalogs;
+using SqlKata.Compilers;
+using SqlKata.Execution;
+using Npgsql;
 
 namespace Snakk.API
 {
@@ -38,6 +41,13 @@ namespace Snakk.API
                     options.Filters.Add(new UnhandledExceptionFilter());
                 }
             );
+
+            services.AddScoped(_ => new QueryFactory(
+                new NpgsqlConnection(Configuration.GetConnectionString("PostgresConnectionString")),
+                new PostgresCompiler()));
+
+            //services.AddDbContext<DB.Context>(options =>
+            //  options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
             AddHelpers(services);
             AddPluginInterfaces(services);

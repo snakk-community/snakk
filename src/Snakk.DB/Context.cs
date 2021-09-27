@@ -5,7 +5,57 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Snakk.DB
 {
-    public class Context : DbContext
+    public interface IContext
+    {
+        DbSet<AccessGroup> AccessGroups { get; set; }
+        DbSet<Permission> AdministratorPermissions { get; set; }
+        DbSet<Avatar> Avatars { get; set; }
+        DbSet<Ban> Bans { get; set; }
+        DbSet<ChannelSubscription> ChannelAccessGroups { get; set; }
+        DbSet<ChannelAvatar> ChannelAvatars { get; set; }
+        DbSet<ChannelBan> ChannelBans { get; set; }
+        DbSet<ChannelLastView> ChannelLastViews { get; set; }
+        DbSet<ChannelModeratorPermission> ChannelModeratorPermissions { get; set; }
+        DbSet<ChannelReport> ChannelReports { get; set; }
+        DbSet<ChannelRule> ChannelRules { get; set; }
+        DbSet<Channel> Channels { get; set; }
+        DbSet<ChannelSubscription> ChannelSubscriptions { get; set; }
+        DbSet<ChannelTag> ChannelTags { get; set; }
+        DbSet<CommentReport> CommentReports { get; set; }
+        DbSet<Comment> Comments { get; set; }
+        DbSet<CommentVote> CommentVotes { get; set; }
+        DbSet<LastView> LastViews { get; set; }
+        DbSet<Permission> Permissions { get; set; }
+        DbSet<PostBan> PostBans { get; set; }
+        DbSet<PostComment> PostComments { get; set; }
+        DbSet<PostLastView> PostLastViews { get; set; }
+        DbSet<PostReport> PostReports { get; set; }
+        DbSet<Post> Posts { get; set; }
+        DbSet<PostSubscription> PostSubscriptions { get; set; }
+        DbSet<PostSurvey> PostSurveys { get; set; }
+        DbSet<ReportComment> ReportComments { get; set; }
+        DbSet<Report> Reports { get; set; }
+        DbSet<Rule> Rules { get; set; }
+        DbSet<Signature> Signatures { get; set; }
+        DbSet<SubscriptionNotification> SubscriptionNotifications { get; set; }
+        DbSet<Subscription> Subscriptions { get; set; }
+        DbSet<SurveyQuestionAnswer> SurveyQuestionAnswers { get; set; }
+        DbSet<SurveyQuestionOption> SurveyQuestionOptions { get; set; }
+        DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+        DbSet<Survey> Surveys { get; set; }
+        DbSet<Tag> Tags { get; set; }
+        DbSet<UserAccessGroup> UserAccessGroups { get; set; }
+        DbSet<UserAvatar> UserAvatars { get; set; }
+        DbSet<UserBan> UserBans { get; set; }
+        DbSet<UserReport> UserReports { get; set; }
+        DbSet<User> Users { get; set; }
+        DbSet<UserSignature> UserSignatures { get; set; }
+        DbSet<UserSocialLink> UserSocialLinks { get; set; }
+        DbSet<UserSubscription> UserSubscriptions { get; set; }
+        DbSet<Vote> Votes { get; set; }
+    }
+
+    public class Context : DbContext, IContext
     {
         private static bool _created = false;
         public Context()

@@ -2,6 +2,7 @@
 //  SPDX-License-Identifier: MIT
 
 using Snakk.API.Dto.Routes.Comment.Get;
+using SqlKata;
 using System;
 
 namespace Snakk.API.Plugin.MyPlugin1.Hooks.Routes.Comment.Services
@@ -18,18 +19,16 @@ namespace Snakk.API.Plugin.MyPlugin1.Hooks.Routes.Comment.Services
             Console.WriteLine($"Hello from {GetType().FullName}.Before()");
         }
 
-        public void CommentQuerySelectorBuilder(DB.Comment entity, dynamic result)
+        public void CommentQueryBuilderBefore(long commentId, Query commentQuery)
         {
-            Console.WriteLine($"Hello from {GetType().FullName}.CommentQuerySelectorBuilder()");
-           
-            result.Test = entity.CreatedUtc;
+            Console.WriteLine($"Hello from {GetType().FullName}.CommentQueryBuilderBefore()");
+
+            commentQuery.Select($"IsDeleted AS PluginData[{PluginInfo.Identifier}].IsDeleted");
         }
 
-        public void CommentQueryWhereBuilder(LinqKit.ExpressionStarter<DB.Comment> wherePredicate)
+        public void CommentQueryBuilderAfter(long commentId, QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto)
         {
-            Console.WriteLine($"Hello from {GetType().FullName}.CommentQueryWhereBuilder()");
-        
-            wherePredicate.And(i => i.CreatedUtc > DateTime.UtcNow.AddYears(-10));
+            Console.WriteLine($"Hello from {GetType().FullName}.CommentQueryBuilderAfter()");
         }
     }
 }

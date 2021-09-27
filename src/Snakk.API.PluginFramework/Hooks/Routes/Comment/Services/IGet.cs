@@ -10,10 +10,13 @@
             long commentId,
             Dto.Routes.Comment.Get.ResponseDto responseDto);
 
-        void CommentQueryWhereBuilder(LinqKit.ExpressionStarter<DB.Comment> wherePredicate);
+        void CommentQueryBuilderBefore(
+            long commentId,
+            SqlKata.Query commentQuery);
 
-        void CommentQuerySelectorBuilder(
-            DB.Comment entity,
-            dynamic result);
+        void CommentQueryBuilderAfter(
+            long commentId,
+            QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto);
+
     }
 }

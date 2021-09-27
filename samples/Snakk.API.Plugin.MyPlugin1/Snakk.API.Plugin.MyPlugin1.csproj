@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="5.0.26" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="SqlKata" Version="2.3.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +14,9 @@
     </Reference>
     <Reference Include="Snakk.API.PluginFramework">
       <HintPath>..\..\dist\Snakk.API.PluginFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Snakk.API.QueryResult.Dto">
+      <HintPath>..\..\dist\Snakk.API.QueryResult.Dto.dll</HintPath>
     </Reference>
     <Reference Include="Snakk.DB">
       <HintPath>..\..\dist\Snakk.DB.dll</HintPath>
