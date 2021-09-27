@@ -18,7 +18,7 @@ namespace Snakk.API.Routes.Thread
             IThreadHashIdConverter threadHashIdConverter,
             Services.Get.IService getService)
         {
-            _postHashIdConverter = threadHashIdConverter;
+            _threadHashIdConverter = threadHashIdConverter;
             _getService = getService;
         }
 

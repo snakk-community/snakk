@@ -1,7 +1,6 @@
 ﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
 //  SPDX-License-Identifier: MIT
 
-using Snakk.API.Dto.Routes.Comment.Get;
 using Snakk.API.QueryResult.Dto.Routes.Comment.Services.Get;
 using SqlKata;
 using System;
@@ -15,9 +14,15 @@ namespace Snakk.API.Plugin.MyPlugin1.Hooks.Routes.Comment.Services.Get
             Console.WriteLine($"[{PluginInfo.Name}] Hello from {GetType().FullName}.Before()");
         }
 
-        public void After(object pluginRequestData, dynamic pluginData, long commentId, CommentDto commentQueryResultDto, ResponseDto responseDto)
+        public void After(object pluginRequestData, dynamic pluginData, long commentId, CommentDto commentQueryResultDto, dynamic responseData)
         {
             Console.WriteLine($"[{PluginInfo.Name}] Hello from {GetType().FullName}.After()");
+
+            responseData = new
+            {
+                Foo = 1,
+                Bar = 2,
+            };
         }
 
         public void CommentQueryBuilderBefore(object pluginRequestData, dynamic pluginData, long commentId, Query commentQuery)
