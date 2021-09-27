@@ -24,7 +24,7 @@ namespace Snakk.API.Routes.Comment.Services.Get
             long commentId,
             Dictionary<string, object> pluginRequestDataDictionary)
         {
-            Hook.Before(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId);
+            PluginHook.Before(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId);
 
             var comment = await GetComment(
                 commentId,
@@ -36,7 +36,7 @@ namespace Snakk.API.Routes.Comment.Services.Get
                 PluginData = comment.PluginData
             };
 
-            Hook.After(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId, comment, responseDto);
+            PluginHook.After(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId, comment, responseDto);
 
             return responseDto;
         }
@@ -50,11 +50,11 @@ namespace Snakk.API.Routes.Comment.Services.Get
                 .Where("Id", commentId)
                 .Select("Id", "Text", "CreatedUtc");
 
-            Hook.CommentQueryBuilderBefore(_pluginEnumerable, _pluginDataDictionary, pluginRequestData, commentId, commentQuery);
+            PluginHook.CommentQueryBuilderBefore(_pluginEnumerable, _pluginDataDictionary, pluginRequestData, commentId, commentQuery);
 
             var commentQueryResultDto = await commentQuery.FirstOrDefaultAsync<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto>();
 
-            Hook.CommentQueryBuilderAfter(_pluginEnumerable, _pluginDataDictionary, pluginRequestData, commentId, commentQueryResultDto);
+            PluginHook.CommentQueryBuilderAfter(_pluginEnumerable, _pluginDataDictionary, pluginRequestData, commentId, commentQueryResultDto);
 
             return commentQueryResultDto;
         }

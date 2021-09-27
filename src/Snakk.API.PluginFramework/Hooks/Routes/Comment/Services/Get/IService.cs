@@ -12,7 +12,7 @@
             dynamic pluginData,
             long commentId,
             QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto,
-            Dto.Routes.Comment.Get.ResponseDto responseDto);
+            dynamic responseData);
 
         void CommentQueryBuilderBefore(
             object pluginRequestData,

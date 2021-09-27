@@ -6,15 +6,14 @@ using System.Collections.Generic;
 
 namespace Snakk.API.Routes.Comment.Services.Get
 {
-    public static class Hook
+    public static class PluginHook
     {
         #region Hook definitions
         public static void Before(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
             Dictionary<string, dynamic> pluginDataDictionary,
             Dictionary<string, object> pluginRequestDataDictionary,
-            long commentId)
-            => HookBase.Invoke(
+            long commentId) => HookBase.Invoke(
                 pluginEnumerable,
                 pluginRequestDataDictionary,
                 pluginDataDictionary,
@@ -30,26 +29,33 @@ namespace Snakk.API.Routes.Comment.Services.Get
             Dictionary<string, object> pluginRequestDataDictionary,
             long commentId,
             QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto,
-            Dto.Routes.Comment.Get.ResponseDto responseDto)
-            => HookBase.Invoke(
+            Dto.Routes.Comment.Get.ResponseDto responseDto) => HookBase.Invoke(
                 pluginEnumerable,
                 pluginRequestDataDictionary,
                 pluginDataDictionary,
-                (plugin, pluginRequestData, pluginData) 
-                => plugin.After(
-                    pluginRequestData,
-                    pluginData,
-                    commentId,
-                    commentQueryResultDto,
-                    responseDto));
+                (plugin, pluginRequestData, pluginData) =>
+                {
+                    dynamic responseData = null;
+
+                    plugin.After(
+                        pluginRequestData,
+                        pluginData,
+                        commentId,
+                        commentQueryResultDto,
+                        responseData);
+
+                    if (responseData != null)
+                    {
+                        responseDto.PluginData[plugin.GetId()] = responseData;
+                    }
+                });
 
         public static void CommentQueryBuilderBefore(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
             Dictionary<string, dynamic> pluginDataDictionary,
             Dictionary<string, object> pluginRequestDataDictionary,
             long commentId,
-            SqlKata.Query commentQuery)
-            => HookBase.Invoke(
+            SqlKata.Query commentQuery) => HookBase.Invoke(
                 pluginEnumerable,
                 pluginRequestDataDictionary,
                 pluginDataDictionary,
@@ -65,8 +71,7 @@ namespace Snakk.API.Routes.Comment.Services.Get
             Dictionary<string, dynamic> pluginDataDictionary,
             Dictionary<string, object> pluginRequestDataDictionary,
             long commentId,
-            QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto)
-            => HookBase.Invoke(
+            QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto) => HookBase.Invoke(
                 pluginEnumerable,
                 pluginRequestDataDictionary,
                 pluginDataDictionary,
