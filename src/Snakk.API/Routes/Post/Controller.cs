@@ -2,28 +2,28 @@
 using Snakk.API.Helpers.HashIdConverters;
 using System.Threading.Tasks;
 
-namespace Snakk.API.Routes.Post
+namespace Snakk.API.Routes.Thread
 {
     [ApiController]
-    [Route("/post")]
+    [Route("/thread")]
     public class Controller : ControllerBase
     {
-        private readonly IPostHashIdConverter _postHashIdConverter;
-        private readonly Services.IGet _get;
+        private readonly IThreadHashIdConverter _postHashIdConverter;
+        private readonly Services.Get.IService _getService;
 
         public Controller(
-            IPostHashIdConverter postHashIdConverter,
-            Services.IGet get)
+            IThreadHashIdConverter postHashIdConverter,
+            Services.Get.IService getService)
         {
             _postHashIdConverter = postHashIdConverter;
-            _get = get;
+            _getService = getService;
         }
 
         [HttpGet("{hashid}")]
         public async Task<IActionResult> GetAsync(
             [FromRoute] string hashId,
-            [FromQuery] Dto.Routes.Post.Get.RequestDto requestDto)
-            => Ok(await _get.RunAsync(
+            [FromQuery] Dto.Routes.Thread.Get.RequestDto requestDto)
+            => Ok(await _getService.RunAsync(
                 _postHashIdConverter.GetIdFromHash(hashId),
                 requestDto.PluginData));
     }

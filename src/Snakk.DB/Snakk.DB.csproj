@@ -7,7 +7,7 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+   <Target Name="ThreadBuild" AfterTargets="ThreadBuildEvent">
      <Copy SourceFiles="$(TargetDir)\$(ProjectName).dll" DestinationFolder="$(ProjectDir)..\..\dist\" />
      <Copy SourceFiles="$(TargetDir)\$(ProjectName).pdb" DestinationFolder="$(ProjectDir)..\..\dist\" />
    </Target>

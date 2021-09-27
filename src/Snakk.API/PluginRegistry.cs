@@ -19,10 +19,10 @@ namespace Snakk.API
 
 		private static readonly Type[] _pluginTypes = new[]
 		{
-			typeof(PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet),
-			typeof(PluginFramework.Hooks.Routes.Channel.Services.IGet),
-			typeof(PluginFramework.Hooks.Routes.Post.Services.IGet),
-			typeof(PluginFramework.Hooks.Routes.Comment.Services.IGet),
+			typeof(PluginFramework.Hooks.Routes.Channel.Thread.List.Services.Get.IService),
+			typeof(PluginFramework.Hooks.Routes.Channel.Services.Get.IService),
+			typeof(PluginFramework.Hooks.Routes.Thread.Services.Get.IService),
+			typeof(PluginFramework.Hooks.Routes.Comment.Services.Get.IService),
 		};
 
 		public static void LoadPlugins()

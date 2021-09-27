@@ -13,21 +13,21 @@ namespace Snakk.API.Routes.Comment
     public class Controller : ControllerBase
     {
         private readonly ICommentHashIdConverter _commentHashIdConverter;
-        private readonly Services.IGet _get;
+        private readonly Services.Get.IService _getService;
 
         public Controller(
             ICommentHashIdConverter commentHashIdConverter,
-            Services.IGet get)
+            Services.Get.IService getService)
         {
             _commentHashIdConverter = commentHashIdConverter;
-            _get = get;
+            _getService = getService;
         }
 
         [HttpGet("{hashid}")]
         public async Task<IActionResult> GetAsync(
             [FromRoute] string hashId,
             [FromQuery] Dto.Routes.Comment.Get.RequestDto requestDto) 
-            => Ok(await _get.RunAsync(
+            => Ok(await _getService.RunAsync(
                 _commentHashIdConverter.GetIdFromHash(hashId),
                 requestDto.PluginData));
     }

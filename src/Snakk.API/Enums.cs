@@ -24,7 +24,7 @@ namespace Snakk.API
         OpenAndCloseThread = 11,
         CreateWarningInThread = 12,
         CreatePreMessageForThread = 13,
-        CreatePostMessageForThread = 14,
+        CreateThreadMessageForThread = 14,
         ChangeChannelSettings = 14,
         StickAndUnstickThread = 15,
         ManageTags = 16,

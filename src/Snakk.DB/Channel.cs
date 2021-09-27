@@ -26,7 +26,7 @@ namespace Snakk.DB
 
         public DateTime CreatedUtc { get; set; }
 
-        public List<Post> Posts { get; set; } = new List<Post>();
+        public List<Thread> Threads { get; set; } = new List<Thread>();
         public List<ChannelBan> Bans { get; set; } = new List<ChannelBan>();
         public List<ChannelTag> Tags { get; set; } = new List<ChannelTag>();
         public List<ChannelAvatar> Avatars { get; set; } = new List<ChannelAvatar>();

@@ -26,13 +26,13 @@ namespace Snakk.DB
         DbSet<CommentVote> CommentVotes { get; set; }
         DbSet<LastView> LastViews { get; set; }
         DbSet<Permission> Permissions { get; set; }
-        DbSet<PostBan> PostBans { get; set; }
-        DbSet<PostComment> PostComments { get; set; }
-        DbSet<PostLastView> PostLastViews { get; set; }
-        DbSet<PostReport> PostReports { get; set; }
-        DbSet<Post> Posts { get; set; }
-        DbSet<PostSubscription> PostSubscriptions { get; set; }
-        DbSet<PostSurvey> PostSurveys { get; set; }
+        DbSet<ThreadBan> ThreadBans { get; set; }
+        DbSet<ThreadComment> ThreadComments { get; set; }
+        DbSet<ThreadLastView> ThreadLastViews { get; set; }
+        DbSet<ThreadReport> ThreadReports { get; set; }
+        DbSet<Thread> Threads { get; set; }
+        DbSet<ThreadSubscription> ThreadSubscriptions { get; set; }
+        DbSet<ThreadSurvey> ThreadSurveys { get; set; }
         DbSet<ReportComment> ReportComments { get; set; }
         DbSet<Report> Reports { get; set; }
         DbSet<Rule> Rules { get; set; }
@@ -90,13 +90,13 @@ namespace Snakk.DB
         public DbSet<CommentVote> CommentVotes { get; set; }
         public DbSet<LastView> LastViews { get; set; }
         public DbSet<Permission> Permissions { get; set; }
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<PostBan> PostBans { get; set; }
-        public DbSet<PostComment> PostComments { get; set; }
-        public DbSet<PostLastView> PostLastViews { get; set; }
-        public DbSet<PostReport> PostReports { get; set; }
-        public DbSet<PostSubscription> PostSubscriptions { get; set; }
-        public DbSet<PostSurvey> PostSurveys { get; set; }
+        public DbSet<Thread> Threads { get; set; }
+        public DbSet<ThreadBan> ThreadBans { get; set; }
+        public DbSet<ThreadComment> ThreadComments { get; set; }
+        public DbSet<ThreadLastView> ThreadLastViews { get; set; }
+        public DbSet<ThreadReport> ThreadReports { get; set; }
+        public DbSet<ThreadSubscription> ThreadSubscriptions { get; set; }
+        public DbSet<ThreadSurvey> ThreadSurveys { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<ReportComment> ReportComments { get; set; }
         public DbSet<Rule> Rules { get; set; }

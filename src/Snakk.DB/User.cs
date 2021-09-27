@@ -31,7 +31,7 @@ namespace Snakk.DB
         public List<UserAccessGroup> AccessGroups { get; set; } = new List<UserAccessGroup>();
 
         public List<ChannelReport> ChannelReports { get; set; } = new List<ChannelReport>();
-        public List<PostReport> PostReports { get; set; } = new List<PostReport>();
+        public List<ThreadReport> ThreadReports { get; set; } = new List<ThreadReport>();
         public List<CommentReport> CommentReports { get; set; } = new List<CommentReport>();
 
         public List<UserReport> UserReports { get; set; } = new List<UserReport>();
@@ -39,20 +39,20 @@ namespace Snakk.DB
         [InverseProperty("ReportedUser")]
         public List<UserReport> OtherUsersReportsOfThisUser { get; set; } = new List<UserReport>();
 
-        public List<Post> Posts { get; set; } = new List<Post>();
+        public List<Thread> Threads { get; set; } = new List<Thread>();
         public List<UserSocialLink> SocialLinks { get; set; } = new List<UserSocialLink>();
-        public List<PostLastView> PostLastViews { get; set; } = new List<PostLastView>();
+        public List<ThreadLastView> ThreadLastViews { get; set; } = new List<ThreadLastView>();
         public List<ChannelLastView> ChannelLastViews { get; set; } = new List<ChannelLastView>();
         public List<Vote> GivenVotes { get; set; } = new List<Vote>();
         public List<SurveyQuestionAnswer> SurveyQuestionAnswers { get; set; } = new List<SurveyQuestionAnswer>();
 
-        public List<PostComment> PostComments { get; set; } = new List<PostComment>();
+        public List<ThreadComment> ThreadComments { get; set; } = new List<ThreadComment>();
         public List<ReportComment> ReportComments { get; set; } = new List<ReportComment>();
 
         public List<AdministratorPermission> AdministratorPermissions { get; set; } = new List<AdministratorPermission>();
         public List<ChannelModeratorPermission> ModeratorPermissions { get; set; } = new List<ChannelModeratorPermission>();
 
-        public List<PostBan> PostBans { get; set; } = new List<PostBan>();
+        public List<ThreadBan> ThreadBans { get; set; } = new List<ThreadBan>();
         public List<ChannelBan> ChannelBans { get; set; } = new List<ChannelBan>();
 
         public List<UserSubscription> UserSubscriptions { get; set; } = new List<UserSubscription>();

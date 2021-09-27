@@ -43,7 +43,7 @@ namespace Snakk.API
             );
 
             services.AddScoped(_ => new QueryFactory(
-                new NpgsqlConnection(Configuration.GetConnectionString("PostgresConnectionString")),
+                new NpgsqlConnection(Configuration.GetConnectionString("ThreadgresConnectionString")),
                 new PostgresCompiler()));
 
             //services.AddDbContext<DB.Context>(options =>
@@ -56,17 +56,17 @@ namespace Snakk.API
 
         private void AddRouteServices(IServiceCollection services)
         {
-            services.AddScoped<Routes.Comment.Services.IGet, Routes.Comment.Services.Get>();
-            services.AddScoped<Routes.Post.Services.IGet, Routes.Post.Services.Get>();
-            services.AddScoped<Routes.Channel.Services.IGet, Routes.Channel.Services.Get>();
-            services.AddScoped<Routes.Channel.Post.List.Services.IGet, Routes.Channel.Post.List.Services.Get>();
+            services.AddScoped<Routes.Comment.Services.Get.IService, Routes.Comment.Services.Get.Service>();
+            services.AddScoped<Routes.Thread.Services.Get.IService, Routes.Thread.Services.Get.Service>();
+            services.AddScoped<Routes.Channel.Services.Get.IService, Routes.Channel.Services.Get.Service>();
+            services.AddScoped<Routes.Channel.Thread.List.Services.Get.IService, Routes.Channel.Thread.List.Services.Get.Service>();
         }
 
         private void AddPluginInterfaces(IServiceCollection services)
         {
             System.IO.Directory.CreateDirectory(@".\plugins");
 
-            PluginRegistry.LoadPlugins();
+            //PluginRegistry.LoadPlugins();
 
             services
                 .AddPluginFramework()
@@ -74,18 +74,17 @@ namespace Snakk.API
                 .AddPluginCatalog(new FolderPluginCatalog(@".\plugins", type =>
                 {
                     type.Implements<PluginFramework.IPlugin>();
-                    //type.Implements<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet>();
                 }))
-            .AddPluginType<PluginFramework.Hooks.Routes.Post.Services.IGet>()
-            .AddPluginType<PluginFramework.Hooks.Routes.Comment.Services.IGet>()
-            .AddPluginType<PluginFramework.Hooks.Routes.Channel.Services.IGet>()
-            .AddPluginType<PluginFramework.Hooks.Routes.Channel.Post.List.Services.IGet>();
+            .AddPluginType<PluginFramework.Hooks.Routes.Thread.Services.Get.IService>()
+            .AddPluginType<PluginFramework.Hooks.Routes.Comment.Services.Get.IService>()
+            .AddPluginType<PluginFramework.Hooks.Routes.Channel.Services.Get.IService>()
+            .AddPluginType<PluginFramework.Hooks.Routes.Channel.Thread.List.Services.Get.IService>();
         }
 
         private void AddHelpers(IServiceCollection services)
         {
             // HashIdConverters
-            services.AddSingleton<Helpers.HashIdConverters.IPostHashIdConverter, Helpers.HashIdConverters.PostHashIdConverter>();
+            services.AddSingleton<Helpers.HashIdConverters.IThreadHashIdConverter, Helpers.HashIdConverters.ThreadHashIdConverter>();
             services.AddSingleton<Helpers.HashIdConverters.ICommentHashIdConverter, Helpers.HashIdConverters.CommentHashIdConverter>();
             services.AddSingleton<Helpers.HashIdConverters.IUserHashIdConverter, Helpers.HashIdConverters.UserHashIdConverter>();
         }
