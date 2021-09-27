@@ -48,7 +48,7 @@ namespace Snakk.API.Routes.Comment.Services
             return responseDto;
         }
 
-        public async Task<(string Text, dynamic PluginData)> GetComment(
+        public async Task<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto> GetComment(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.IGet> pluginEnumerable,
             long commentId)
         {
@@ -59,11 +59,11 @@ namespace Snakk.API.Routes.Comment.Services
 
             HookCommentQueryBuilderBefore(_pluginEnumerable, commentId, commentQuery);
 
-            var comment = await commentQuery.FirstOrDefaultAsync<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto>();
+            var commentQueryResultDto = await commentQuery.FirstOrDefaultAsync<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto>();
 
-            HookCommentQueryBuilderAfter(_pluginEnumerable, commentId, comment);
+            HookCommentQueryBuilderAfter(_pluginEnumerable, commentId, commentQueryResultDto);
 
-            return (comment.Text, comment.PluginData);
+            return commentQueryResultDto;
         }
 
         #region Hook definitions
