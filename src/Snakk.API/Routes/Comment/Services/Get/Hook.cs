@@ -1,4 +1,7 @@
-﻿using Snakk.API.Helpers;
+﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
+//  SPDX-License-Identifier: MIT
+
+using Snakk.API.Helpers;
 using System.Collections.Generic;
 
 namespace Snakk.API.Routes.Comment.Services.Get

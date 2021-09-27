@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace Snakk.API.Routes.Comment.Services.Get
 {
-    public interface IService
-    {
-        Task<Dto.Routes.Comment.Get.ResponseDto> RunAsync(
-            long commentId,
-            object pluginData);
-    }
-
     public abstract class Service : IService
     {
         private readonly IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> _pluginEnumerable;

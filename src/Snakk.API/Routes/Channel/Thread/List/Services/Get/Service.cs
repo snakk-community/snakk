@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace Snakk.API.Routes.Channel.Thread.List.Services.Get
 {
-    public interface IService
-    {
-        Task<Dto.Routes.Channel.Thread.List.Get.ResponseDto> RunAsync(
-            string channelUrlIdentifier,
-            object pluginData);
-    }
-
     public class Service : IService
     {
         private readonly IEnumerable<PluginFramework.Hooks.Routes.Channel.Thread.List.Services.Get.IService> _pluginEnumerable;

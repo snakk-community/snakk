@@ -1,16 +1,12 @@
-﻿using Snakk.API.Helpers;
+﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
+//  SPDX-License-Identifier: MIT
+
+using Snakk.API.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Snakk.API.Routes.Thread.Services.Get
 {
-    public interface IService
-    {
-        Task<Dto.Routes.Thread.Get.ResponseDto> RunAsync(
-            long id,
-            object pluginData);
-    }
-
     public class Service : IService
     {
         private readonly IEnumerable<PluginFramework.Hooks.Routes.Thread.Services.Get.IService> _pluginEnumerable;
