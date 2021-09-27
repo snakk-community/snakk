@@ -2,7 +2,7 @@
 {
     public static class PluginInfo
     {
+        public static string Id = "MyPlugin1";
         public static string Name = "My Plugin 1";
-        public static string Identifier = "MyPlugin1";
     }
 }

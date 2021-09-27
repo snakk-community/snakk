@@ -2,5 +2,7 @@
 {
     public interface IPlugin
     {
+        string GetId();
+        string GetName();
     }
 }

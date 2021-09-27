@@ -6,7 +6,7 @@ using System;
 
 namespace Snakk.API.Plugin.MyPlugin1.Hooks.Routes.Thread.Services.Get
 {
-    public class Service : PluginFramework.Hooks.Routes.Thread.Services.Get.IService
+    public class Service : BasePlugin, PluginFramework.Hooks.Routes.Thread.Services.Get.IService
     {
         public void After(long commentId, ResponseDto responseDto)
         {

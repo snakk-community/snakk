@@ -22,11 +22,11 @@ namespace Snakk.API.Routes.Thread.Services.Get
         {
             var responseDto = new Dto.Routes.Thread.Get.ResponseDto();
 
-            HookBase.Invoke(_pluginEnumerable, i => i.Before(id, responseDto));
+            //HookBase.Invoke(_pluginEnumerable, i => i.Before(id, responseDto));
 
             await Task.Run(() => { });
 
-            HookBase.Invoke(_pluginEnumerable, i => i.Before(id, responseDto));
+            //HookBase.Invoke(_pluginEnumerable, i => i.Before(id, responseDto));
 
             return responseDto;
         }

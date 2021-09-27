@@ -3,18 +3,26 @@
     public interface IService : IPlugin
     {
         void Before(
-            long commentId,
-            Dto.Routes.Comment.Get.ResponseDto responseDto);
+            object pluginRequestData,
+            dynamic pluginData,
+            long commentId);
 
         void After(
+            object pluginRequestData,
+            dynamic pluginData,
             long commentId,
+            QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto,
             Dto.Routes.Comment.Get.ResponseDto responseDto);
 
         void CommentQueryBuilderBefore(
+            object pluginRequestData,
+            dynamic pluginData,
             long commentId,
             SqlKata.Query commentQuery);
 
         void CommentQueryBuilderAfter(
+            object pluginRequestData,
+            dynamic pluginData,
             long commentId,
             QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto);
 

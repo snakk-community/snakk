@@ -11,39 +11,71 @@ namespace Snakk.API.Routes.Comment.Services.Get
         #region Hook definitions
         public static void Before(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
-            long commentId,
-            Dto.Routes.Comment.Get.ResponseDto responseDto)
+            Dictionary<string, dynamic> pluginDataDictionary,
+            Dictionary<string, object> pluginRequestDataDictionary,
+            long commentId)
             => HookBase.Invoke(
                 pluginEnumerable,
-                i => i.Before(
-                    commentId,
-                    responseDto));
+                pluginRequestDataDictionary,
+                pluginDataDictionary,
+                (plugin, pluginRequestData, pluginData)
+                => plugin.Before(
+                    pluginRequestData,
+                    pluginData,
+                    commentId));
 
         public static void After(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
+            Dictionary<string, dynamic> pluginDataDictionary,
+            Dictionary<string, object> pluginRequestDataDictionary,
             long commentId,
+            QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto,
             Dto.Routes.Comment.Get.ResponseDto responseDto)
             => HookBase.Invoke(
                 pluginEnumerable,
-                i => i.After(
+                pluginRequestDataDictionary,
+                pluginDataDictionary,
+                (plugin, pluginRequestData, pluginData) 
+                => plugin.After(
+                    pluginRequestData,
+                    pluginData,
                     commentId,
+                    commentQueryResultDto,
                     responseDto));
 
         public static void CommentQueryBuilderBefore(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
+            Dictionary<string, dynamic> pluginDataDictionary,
+            Dictionary<string, object> pluginRequestDataDictionary,
             long commentId,
             SqlKata.Query commentQuery)
             => HookBase.Invoke(
                 pluginEnumerable,
-                i => i.CommentQueryBuilderBefore(commentId, commentQuery));
+                pluginRequestDataDictionary,
+                pluginDataDictionary,
+                (plugin, pluginRequestData, pluginData)
+                    => plugin.CommentQueryBuilderBefore(
+                        pluginRequestData,
+                        pluginData,
+                        commentId,
+                        commentQuery));
 
         public static void CommentQueryBuilderAfter(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
+            Dictionary<string, dynamic> pluginDataDictionary,
+            Dictionary<string, object> pluginRequestDataDictionary,
             long commentId,
             QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto)
             => HookBase.Invoke(
                 pluginEnumerable,
-                i => i.CommentQueryBuilderAfter(commentId, commentQueryResultDto));
+                pluginRequestDataDictionary,
+                pluginDataDictionary,
+                (plugin, pluginRequestData, pluginData)
+                => plugin.CommentQueryBuilderAfter(
+                    pluginRequestData,
+                    pluginData,
+                    commentId,
+                    commentQueryResultDto));
         #endregion
     }
 }

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Snakk.API.Routes.Comment.Services.Get
 {
-    public abstract class Service : IService
+    public abstract class Service : BaseService, IService
     {
         private readonly IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> _pluginEnumerable;
         private readonly QueryFactory _db;
-
+        
         public Service(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
-            QueryFactory db)
+            QueryFactory db) : base()
         {
             _pluginEnumerable = pluginEnumerable;
             _db = db;
@@ -22,38 +22,39 @@ namespace Snakk.API.Routes.Comment.Services.Get
 
         public async Task<Dto.Routes.Comment.Get.ResponseDto> RunAsync(
             long commentId,
-            object pluginData)
+            Dictionary<string, object> pluginRequestDataDictionary)
         {
-            var responseDto = new Dto.Routes.Comment.Get.ResponseDto();
-
-            Hook.Before(_pluginEnumerable, commentId, responseDto);
+            Hook.Before(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId);
 
             var comment = await GetComment(
-                _pluginEnumerable,
-                commentId);
+                commentId,
+                pluginRequestDataDictionary);
 
-            responseDto.Text = comment.Text;
-            responseDto.PluginData = comment.PluginData;
+            var responseDto = new Dto.Routes.Comment.Get.ResponseDto
+            {
+                Text = comment.Text,
+                PluginData = comment.PluginData
+            };
 
-            Hook.After(_pluginEnumerable, commentId, responseDto);
+            Hook.After(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId, comment, responseDto);
 
             return responseDto;
         }
 
         public async Task<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto> GetComment(
-            IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
-            long commentId)
+            long commentId,
+            Dictionary<string, object> pluginRequestData)
         {
             var commentQuery = _db
                 .Query("Comment")
                 .Where("Id", commentId)
                 .Select("Id", "Text", "CreatedUtc");
 
-            Hook.CommentQueryBuilderBefore(_pluginEnumerable, commentId, commentQuery);
+            Hook.CommentQueryBuilderBefore(_pluginEnumerable, _pluginDataDictionary, pluginRequestData, commentId, commentQuery);
 
             var commentQueryResultDto = await commentQuery.FirstOrDefaultAsync<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto>();
 
-            Hook.CommentQueryBuilderAfter(_pluginEnumerable, commentId, commentQueryResultDto);
+            Hook.CommentQueryBuilderAfter(_pluginEnumerable, _pluginDataDictionary, pluginRequestData, commentId, commentQueryResultDto);
 
             return commentQueryResultDto;
         }
