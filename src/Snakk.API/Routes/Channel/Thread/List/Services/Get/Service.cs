@@ -29,11 +29,11 @@ namespace Snakk.API.Routes.Channel.Thread.List.Services.Get
         {
             var responseDto = new Dto.Routes.Channel.Thread.List.Get.ResponseDto();
 
-            Hook.Invoke(_pluginEnumerable, i => i.Before(channelUrlIdentifier, responseDto));
+            HookBase.Invoke(_pluginEnumerable, i => i.Before(channelUrlIdentifier, responseDto));
 
             await Task.Run(() => { });
 
-            Hook.Invoke(_pluginEnumerable, i => i.After(channelUrlIdentifier, responseDto));
+            HookBase.Invoke(_pluginEnumerable, i => i.After(channelUrlIdentifier, responseDto));
 
             return responseDto;
         }

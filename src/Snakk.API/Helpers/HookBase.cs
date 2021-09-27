@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Snakk.API.Helpers
 {
-    public static class Hook
+    public static class HookBase
     {
         public static void Invoke<T>(
             IEnumerable<T> pluginEnumerable,
