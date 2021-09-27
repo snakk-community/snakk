@@ -11,24 +11,24 @@ namespace Snakk.API.Plugin.MyPlugin1.Hooks.Routes.Comment.Services
     {
         public void After(long commentId, ResponseDto responseDto)
         {
-            Console.WriteLine($"Hello from {GetType().FullName}.After()");
+            Console.WriteLine($"[{PluginInfo.Name}] Hello from {GetType().FullName}.After()");
         }
 
         public void Before(long commentId, ResponseDto responseDto)
         {
-            Console.WriteLine($"Hello from {GetType().FullName}.Before()");
+            Console.WriteLine($"[{PluginInfo.Name}] Hello from {GetType().FullName}.Before()");
         }
 
         public void CommentQueryBuilderBefore(long commentId, Query commentQuery)
         {
-            Console.WriteLine($"Hello from {GetType().FullName}.CommentQueryBuilderBefore()");
+            Console.WriteLine($"[{PluginInfo.Name}] Hello from {GetType().FullName}.CommentQueryBuilderBefore()");
 
             commentQuery.Select($"IsDeleted AS PluginData[{PluginInfo.Identifier}].IsDeleted");
         }
 
         public void CommentQueryBuilderAfter(long commentId, QueryResult.Dto.Routes.Comment.Services.Get.CommentDto commentQueryResultDto)
         {
-            Console.WriteLine($"Hello from {GetType().FullName}.CommentQueryBuilderAfter()");
+            Console.WriteLine($"[{PluginInfo.Name}] Hello from {GetType().FullName}.CommentQueryBuilderAfter()");
         }
     }
 }
