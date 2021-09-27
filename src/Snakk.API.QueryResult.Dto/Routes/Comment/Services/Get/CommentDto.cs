@@ -1,4 +1,7 @@
-﻿namespace Snakk.API.QueryResult.Dto.Routes.Comment.Services.Get
+﻿//  SPDX-FileCopyrightText: 2021 Pål Rune Sørensen Tuv <me@paaltuv.no>
+//  SPDX-License-Identifier: MIT
+
+namespace Snakk.API.QueryResult.Dto.Routes.Comment.Services.Get
 {
     public class CommentDto : BasePluginDataDto
     {
