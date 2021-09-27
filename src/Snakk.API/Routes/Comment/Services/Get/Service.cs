@@ -43,18 +43,18 @@ namespace Snakk.API.Routes.Comment.Services.Get
 
         public async Task<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto> GetComment(
             long commentId,
-            Dictionary<string, object> pluginRequestData)
+            Dictionary<string, object> pluginRequestDataDictionary)
         {
             var commentQuery = _db
                 .Query("Comment")
                 .Where("Id", commentId)
                 .Select("Id", "Text", "CreatedUtc");
 
-            PluginHook.CommentQueryBuilderBefore(_pluginEnumerable, _pluginDataDictionary, pluginRequestData, commentId, commentQuery);
+            PluginHook.CommentQueryBuilderBefore(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId, commentQuery);
 
             var commentQueryResultDto = await commentQuery.FirstOrDefaultAsync<QueryResult.Dto.Routes.Comment.Services.Get.CommentDto>();
 
-            PluginHook.CommentQueryBuilderAfter(_pluginEnumerable, _pluginDataDictionary, pluginRequestData, commentId, commentQueryResultDto);
+            PluginHook.CommentQueryBuilderAfter(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId, commentQueryResultDto);
 
             return commentQueryResultDto;
         }
