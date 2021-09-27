@@ -11,14 +11,14 @@ namespace Snakk.API.Routes.Thread
     [Route("/thread")]
     public class Controller : ControllerBase
     {
-        private readonly IThreadHashIdConverter _postHashIdConverter;
+        private readonly IThreadHashIdConverter _threadHashIdConverter;
         private readonly Services.Get.IService _getService;
 
         public Controller(
-            IThreadHashIdConverter postHashIdConverter,
+            IThreadHashIdConverter threadHashIdConverter,
             Services.Get.IService getService)
         {
-            _postHashIdConverter = postHashIdConverter;
+            _postHashIdConverter = threadHashIdConverter;
             _getService = getService;
         }
 
@@ -27,7 +27,7 @@ namespace Snakk.API.Routes.Thread
             [FromRoute] string hashId,
             [FromQuery] Dto.Routes.Thread.Get.RequestDto requestDto)
             => Ok(await _getService.RunAsync(
-                _postHashIdConverter.GetIdFromHash(hashId),
+                _threadHashIdConverter.GetIdFromHash(hashId),
                 requestDto.PluginData));
     }
 }
