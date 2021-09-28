@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("SurveyQuestionOption")]
     public class SurveyQuestionOption
     {
-        public long Id { get; set; }
+        public long SurveyQuestionOptionId { get; set; }
         public string Text { get; set; }
 
         public bool IsDeleted { get; set; }

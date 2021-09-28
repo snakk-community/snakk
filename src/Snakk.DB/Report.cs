@@ -10,7 +10,7 @@ namespace Snakk.DB
     [Table("Report")]
     public class Report
     {
-        public long Id { get; set; }
+        public long ReportId { get; set; }
 
         public string Message { get; set; }
 

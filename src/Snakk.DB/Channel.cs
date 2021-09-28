@@ -10,7 +10,7 @@ namespace Snakk.DB
     [Table("Channel")]
     public class Channel
     {
-        public long Id { get; set; }
+        public long ChannelId { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
         public string Description { get; set; }
@@ -27,6 +27,7 @@ namespace Snakk.DB
         public DateTime CreatedUtc { get; set; }
 
         public List<Thread> Threads { get; set; } = new List<Thread>();
+        public List<ChannelAccessGroup> AccessGroups { get; set; } = new List<ChannelAccessGroup>();
         public List<ChannelBan> Bans { get; set; } = new List<ChannelBan>();
         public List<ChannelTag> Tags { get; set; } = new List<ChannelTag>();
         public List<ChannelAvatar> Avatars { get; set; } = new List<ChannelAvatar>();

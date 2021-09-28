@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("SubscriptionNotification")]
     public class SubscriptionNotification
     {
-        public long Id { get; set; }
+        public long SubscriptionNotificationId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
 

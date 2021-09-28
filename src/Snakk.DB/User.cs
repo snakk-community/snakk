@@ -10,7 +10,7 @@ namespace Snakk.DB
     [Table("User")]
     public class User
     {
-        public long Id { get; set; }
+        public long UserId { get; set; }
 
         public string Username { get; set; }
         public string DisplayName { get; set; }

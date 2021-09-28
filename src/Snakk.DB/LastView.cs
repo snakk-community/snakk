@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("LastView")]
     public class LastView
     {
-        public long Id { get; set; }
+        public long LastViewId { get; set; }
         
         public DateTime LastViewUtc { get; set; }
     }

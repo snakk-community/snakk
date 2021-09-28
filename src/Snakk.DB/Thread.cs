@@ -10,7 +10,7 @@ namespace Snakk.DB
     [Table("Thread")]
     public class Thread
     {
-        public long Id { get; set; }
+        public long ThreadId { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
 

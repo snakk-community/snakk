@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("Signature")]
     public class Signature
     {
-        public long Id { get; set; }
+        public long SignatureId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
 

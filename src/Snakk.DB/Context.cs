@@ -2,6 +2,8 @@
 //  SPDX-License-Identifier: MIT
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using System.Data.Common;
 
 namespace Snakk.DB
 {
@@ -57,19 +59,31 @@ namespace Snakk.DB
 
     public class Context : DbContext, IContext
     {
-        private static bool _created = false;
+        private readonly DbConnection _connection;
+
         public Context()
         {
-            if (!_created)
-            {
-                _created = true;
-                Database.EnsureDeleted();
-                Database.EnsureCreated();
-            }
+        }
+
+        public Context(
+            DbConnection connection,
+            DbContextOptions<Context> options)
+            : base(options)
+        {
+            _connection = connection;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=snakk.db");
+            => options
+                .UseNpgsql("User ID=snakk;Password=snakk;Server=localhost;Port=5432;Database=snakk;Integrated Security=true;SearchPath=core;")
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("core");
+
+            base.OnModelCreating(modelBuilder);
+        }
 
         public DbSet<AccessGroup> AccessGroups { get; set; }
         public DbSet<Permission> AdministratorPermissions { get; set; }

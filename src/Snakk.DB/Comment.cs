@@ -10,7 +10,7 @@ namespace Snakk.DB
     [Table("Comment")]
     public class Comment
     {
-        public long Id { get; set; }
+        public long CommentId { get; set; }
 
         public string Text { get; set; }
 

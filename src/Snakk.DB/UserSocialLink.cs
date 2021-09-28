@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("UserSocialLink")]
     public class UserSocialLink
     {
-        public long Id { get; set; }
+        public long UserSocialLinkId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
 

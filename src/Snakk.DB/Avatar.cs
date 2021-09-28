@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("Avatar")]
     public class Avatar
     {
-        public long Id { get; set; }
+        public long AvatarId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
 

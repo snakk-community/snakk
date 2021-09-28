@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("Vote")]
     public class Vote
     {
-        public long Id { get; set; }
+        public long VoteId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
 

@@ -10,7 +10,7 @@ namespace Snakk.DB
     [Table("AccessGroup")]
     public class AccessGroup
     {
-        public long Id { get; set; }
+        public long AccessGroupId { get; set; }
 
         public string Name { get; set; }
 

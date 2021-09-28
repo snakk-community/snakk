@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("Rule")]
     public class Rule
     {
-        public long Id { get; set; }
+        public long RuleId { get; set; }
 
         public string Name { get; set; }
         public string Text { get; set; }

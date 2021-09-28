@@ -10,7 +10,7 @@ namespace Snakk.DB
     [Table("Survey")]
     public class Survey
     {
-        public long Id { get; set; }
+        public long SurveyId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
 

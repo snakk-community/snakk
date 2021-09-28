@@ -9,7 +9,7 @@ namespace Snakk.DB
     [Table("Permission")]
     public class Permission
     {
-        public long Id { get; set; }
+        public long PermissionId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
 
