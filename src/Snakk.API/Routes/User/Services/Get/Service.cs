@@ -12,6 +12,7 @@ namespace Snakk.API.Routes.User.Services.Get
         private readonly IEnumerable<PluginFramework.Hooks.Routes.User.Services.Get.IService> _pluginEnumerable;
         private readonly QueryFactory _db;
         private readonly Helpers.HashIdConverters.AvatarHashIdConverter _avatarHashIdConverter;
+
         public Service(
             IEnumerable<PluginFramework.Hooks.Routes.User.Services.Get.IService> pluginEnumerable,
             Helpers.HashIdConverters.AvatarHashIdConverter avatarHashIdConverter,
