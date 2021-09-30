@@ -63,9 +63,7 @@ namespace Snakk.API.Routes.Thread.Comment.List.Services.Get
                 .Query("ThreadComment")
                 .LeftJoin(
                     "Comment", 
-                    j => j.On(
-                        "ThreadComment.CommentId", 
-                        "Comment.CommentId"))
+                    j => j.On("ThreadComment.CommentId", "Comment.CommentId"))
                 .Where("ThreadId", threadId)
                 .Select(
                     "Comment.CommentId", 

@@ -58,7 +58,16 @@ namespace Snakk.API.Routes.Thread.Services.Get
             var threadQuery = _db
                 .Query("Thread")
                 .Where("Id", threadId)
-                .Select("ThreadId", "Name", "Slug", "IsClosed", "IsPinned", "IsDeleted", "IsAnonymous", "IsSafeForKids", "CreatedUtc");
+                .Select(
+                    "ThreadId",
+                    "Name",
+                    "Slug",
+                    "IsClosed",
+                    "IsPinned",
+                    "IsDeleted",
+                    "IsAnonymous",
+                    "IsSafeForKids",
+                    "CreatedUtc");
 
             PluginHook.ThreadQueryBuilderBefore(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, threadId, threadQuery);
 

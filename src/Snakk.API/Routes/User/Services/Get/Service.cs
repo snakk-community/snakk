@@ -61,26 +61,16 @@ namespace Snakk.API.Routes.User.Services.Get
                 .Query("User")
                 .LeftJoin(
                     "UserAvatar", 
-                    i => i.On(
-                        "User.UserId",
-                        "UserAvatar.UserId"))
+                    i => i.On("User.UserId", "UserAvatar.UserId"))
                 .LeftJoin(
                     "Avatar", 
-                    i => i.On(
-                        "Avatar.AvatarId",
-                        "UserAvatar.AvatarId")
-                    .WhereFalse("IsDeleted"))
+                    i => i.On("Avatar.AvatarId", "UserAvatar.AvatarId").WhereFalse("IsDeleted"))
                 .LeftJoin(
                     "UserSignature", 
-                    i => i.On(
-                        "User.UserId",
-                        "UserSignature.UserId"))
+                    i => i.On("User.UserId", "UserSignature.UserId"))
                 .LeftJoin(
                     "Signature", 
-                    i => i.On(
-                        "Signature.SignatureId",
-                        "UserSignature.SignatureId")
-                    .WhereFalse("IsDeleted"))
+                    i => i.On("Signature.SignatureId", "UserSignature.SignatureId").WhereFalse("IsDeleted"))
                 .Where("User.UserId", userId)
                 .Select(
                     "User.Username",
