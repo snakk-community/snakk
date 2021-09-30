@@ -3,10 +3,11 @@
 
 using System;
 
-namespace Snakk.API.Dto.Routes.Channel.Get
+namespace Snakk.API.QueryResult.Dto.Routes.Channel.Services.Get
 {
-    public class ResponseDto : BaseResponseDto
+    public class ChannelDto : BasePluginDataDto
     {
+        public long ChannelId { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
         public string Description { get; set; }

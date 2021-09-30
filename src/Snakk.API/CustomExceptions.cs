@@ -18,6 +18,14 @@ namespace Snakk.API
         }
     }
 
+    public class ChannelSlugToIdConvertionException : HttpResponseException
+    {
+        public ChannelSlugToIdConvertionException()
+            : base("Could not find channel with provided slug", 404)
+        {
+        }
+    }
+
     public class HashIdToIdConvertionException : HttpResponseException
     {
         public HashIdToIdConvertionException()
