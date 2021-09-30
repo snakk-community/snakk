@@ -3,11 +3,28 @@
     public interface IService : IPlugin
     {
         void Before(
-            string channelUrlIdentifier,
-            Dto.Routes.Channel.Thread.List.Get.ResponseDto responseDto);
+            object pluginRequestData,
+            dynamic pluginData,
+            long channelId);
 
         void After(
-            string channelUrlIdentifier,
-            Dto.Routes.Channel.Thread.List.Get.ResponseDto responseDto);
+            object pluginRequestData,
+            dynamic pluginData,
+            long channelId,
+            QueryResult.Dto.Routes.Channel.Thread.List.Services.Get.ThreadListDto threadQueryResultDto,
+            dynamic responseData);
+
+        void ThreadListQueryBuilderBefore(
+            object pluginRequestData,
+            dynamic pluginData,
+            long channelId,
+            SqlKata.Query threadListQuery);
+
+        void ThreadListQueryBuilderAfter(
+            object pluginRequestData,
+            dynamic pluginData,
+            long channelId,
+            QueryResult.Dto.Routes.Channel.Thread.List.Services.Get.ThreadListDto threadListQueryResultDto);
+
     }
 }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Snakk.API.Routes.Comment.Services.Get
 {
-    public abstract class Service : BaseService, IService
+    public class Service : BaseService, IService
     {
         private readonly IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> _pluginEnumerable;
         private readonly QueryFactory _db;
-        
+
         public Service(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
             QueryFactory db) : base()
@@ -47,8 +47,8 @@ namespace Snakk.API.Routes.Comment.Services.Get
         {
             var commentQuery = _db
                 .Query("Comment")
-                .Where("Id", commentId)
-                .Select("Id", "Text", "CreatedUtc");
+                .Where("CommentId", commentId)
+                .Select("CommentId", "Text", "CreatedUtc");
 
             PluginHook.CommentQueryBuilderBefore(_pluginEnumerable, _pluginDataDictionary, pluginRequestDataDictionary, commentId, commentQuery);
 

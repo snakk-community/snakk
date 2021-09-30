@@ -8,7 +8,6 @@ namespace Snakk.API.Routes.Comment.Services.Get
 {
     public static class PluginHook
     {
-        #region Hook definitions
         public static void Before(
             IEnumerable<PluginFramework.Hooks.Routes.Comment.Services.Get.IService> pluginEnumerable,
             Dictionary<string, dynamic> pluginDataDictionary,
@@ -78,6 +77,5 @@ namespace Snakk.API.Routes.Comment.Services.Get
                     pluginData,
                     commentId,
                     commentQueryResultDto));
-        #endregion
     }
 }

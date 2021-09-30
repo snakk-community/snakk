@@ -11,6 +11,7 @@ namespace Snakk.DB
     public class Thread
     {
         public long ThreadId { get; set; }
+
         public string Name { get; set; }
         public string Slug { get; set; }
 

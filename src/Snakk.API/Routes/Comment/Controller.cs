@@ -23,10 +23,10 @@ namespace Snakk.API.Routes.Comment
             _getService = getService;
         }
 
-        [HttpGet("{hashid}")]
+        [HttpGet("{hashId}")]
         public async Task<IActionResult> GetAsync(
             [FromRoute] string hashId,
-            [FromQuery] Dto.Routes.Comment.Get.RequestDto requestDto) 
+            [FromQuery] Dto.Routes.Comment.Get.RequestDto requestDto)
             => Ok(await _getService.RunAsync(
                 _commentHashIdConverter.GetIdFromHash(hashId),
                 requestDto.PluginData));

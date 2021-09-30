@@ -22,7 +22,7 @@ namespace Snakk.API.Routes.Thread
             _getService = getService;
         }
 
-        [HttpGet("{hashid}")]
+        [HttpGet("{hashId}")]
         public async Task<IActionResult> GetAsync(
             [FromRoute] string hashId,
             [FromQuery] Dto.Routes.Thread.Get.RequestDto requestDto)

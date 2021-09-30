@@ -17,6 +17,7 @@ namespace Snakk.API.Routes.Channel.Thread.List
             _getService = getService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAsync(
             [FromRoute] string channelSlug,
             [FromQuery] Dto.Routes.Channel.Thread.List.Get.RequestDto requestDto)

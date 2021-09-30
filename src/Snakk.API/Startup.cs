@@ -13,6 +13,7 @@ using Weikio.PluginFramework.Catalogs;
 using SqlKata.Compilers;
 using SqlKata.Execution;
 using Npgsql;
+using Microsoft.OpenApi.Models;
 
 namespace Snakk.API
 {
@@ -42,16 +43,19 @@ namespace Snakk.API
                 }
             );
 
-            services.AddScoped(_ => new QueryFactory(
-                new NpgsqlConnection(Configuration.GetConnectionString("ThreadgresConnectionString")),
-                new PostgresCompiler()));
-
-            //services.AddDbContext<DB.Context>(options =>
-            //  options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
-
-            AddHelpers(services);
             AddPluginInterfaces(services);
+            AddHelpers(services);
             AddRouteServices(services);
+
+            services.AddScoped(_ => new QueryFactory(
+                 new NpgsqlConnection(Configuration.GetConnectionString("PostgresConnection")),
+                 new PostgresCompiler()));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.CustomSchemaIds(i => i.FullName);
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "snakk api", Version = "v1" });
+            });
         }
 
         private void AddRouteServices(IServiceCollection services)
@@ -60,6 +64,7 @@ namespace Snakk.API
             services.AddScoped<Routes.Thread.Services.Get.IService, Routes.Thread.Services.Get.Service>();
             services.AddScoped<Routes.Channel.Services.Get.IService, Routes.Channel.Services.Get.Service>();
             services.AddScoped<Routes.Channel.Thread.List.Services.Get.IService, Routes.Channel.Thread.List.Services.Get.Service>();
+            services.AddScoped<Routes.Thread.Comment.List.Services.Get.IService, Routes.Thread.Comment.List.Services.Get.Service>();
         }
 
         private void AddPluginInterfaces(IServiceCollection services)
@@ -78,7 +83,8 @@ namespace Snakk.API
             .AddPluginType<PluginFramework.Hooks.Routes.Thread.Services.Get.IService>()
             .AddPluginType<PluginFramework.Hooks.Routes.Comment.Services.Get.IService>()
             .AddPluginType<PluginFramework.Hooks.Routes.Channel.Services.Get.IService>()
-            .AddPluginType<PluginFramework.Hooks.Routes.Channel.Thread.List.Services.Get.IService>();
+            .AddPluginType<PluginFramework.Hooks.Routes.Channel.Thread.List.Services.Get.IService>()
+            .AddPluginType<PluginFramework.Hooks.Routes.Thread.Comment.List.Services.Get.IService>();
         }
 
         private void AddHelpers(IServiceCollection services)
@@ -95,6 +101,8 @@ namespace Snakk.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "snapp api v1"));
             }
 
             app.UseResponseCompression();
