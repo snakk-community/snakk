@@ -35,6 +35,8 @@ namespace Snakk.API.Plugin.MyPlugin1.Hooks.Routes.Comment.Services.Get
         public void CommentQueryBuilderAfter(object pluginRequestData, dynamic pluginData, long commentId, CommentDto commentQueryResultDto)
         {
             Console.WriteLine($"[{PluginInfo.Name}] Hello from {GetType().FullName}.CommentQueryBuilderAfter()");
+            Console.WriteLine($"[{PluginInfo.Name}] {GetType().FullName}.CommentQueryBuilderAfter() got back data for IsDeleted: '{commentQueryResoltDto.PluginData[PluginInfo;.Id].IsDeleted}'");
+           
         }
     }
 }
